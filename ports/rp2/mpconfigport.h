@@ -113,6 +113,11 @@
 #define MICROPY_EMIT_RV32_ZBA                   (1)
 #define MICROPY_EMIT_RV32_ZCMP                  (1)
 #define MICROPY_EMIT_INLINE_RV32                (1)
+#define MICROPY_PY_BLUETOOTH_ENABLE_PAIRING_BONDING (1)
+#define MICROPY_PY_BLUETOOTH_ENABLE_L2CAP_CHANNELS   (1)
+#define MICROPY_BLUETOOTH_BTSTACK_ENABLE_CLASSIC     (1)
+#define ENABLE_CLASSIC                               (1)
+#define ENABLE_L2CAP_ENHANCED_FEATURE_SUPPORT        (1)
 #endif
 
 // Optimisations
