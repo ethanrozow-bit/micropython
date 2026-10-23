@@ -4,6 +4,8 @@
 // Enable networking.
 #define MICROPY_PY_NETWORK 1
 #define MICROPY_PY_NETWORK_HOSTNAME_DEFAULT     "Pico2W"
+#define MICROPY_PY_BLUETOOTH_ENABLE_PAIRING_BONDING (1)
+#define MICROPY_PY_BLUETOOTH_ENABLE_L2CAP_CHANNELS  (1)
 
 // CYW43 driver configuration.
 #define CYW43_USE_SPI (1)
