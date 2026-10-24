@@ -208,6 +208,7 @@ static void btstack_packet_handler_generic(uint8_t packet_type, uint16_t channel
         switch (hci_event_le_meta_get_subevent_code(packet)) {
             case HCI_SUBEVENT_LE_CONNECTION_COMPLETE: {
                 uint16_t conn_handle = hci_subevent_le_connection_complete_get_connection_handle(packet);
+                sm_request_pairing(con_handle); 
                 uint8_t addr_type = hci_subevent_le_connection_complete_get_peer_address_type(packet);
                 bd_addr_t addr;
                 hci_subevent_le_connection_complete_get_peer_address(packet, addr);
