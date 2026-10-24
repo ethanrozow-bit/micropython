@@ -1079,6 +1079,20 @@ static mp_obj_t bluetooth_ble_invoke_irq(mp_obj_t none_in) {
         mp_obj_tuple_t *data_tuple = MP_OBJ_TO_PTR(o->irq_data_tuple);
 
         if (event == MP_BLUETOOTH_IRQ_CENTRAL_CONNECT || event == MP_BLUETOOTH_IRQ_PERIPHERAL_CONNECT || event == MP_BLUETOOTH_IRQ_CENTRAL_DISCONNECT || event == MP_BLUETOOTH_IRQ_PERIPHERAL_DISCONNECT) {
+            // We only want to trigger our aggressive pairing engine on active connections
+            if (event == MP_BLUETOOTH_IRQ_PERIPHERAL_CONNECT) {
+                // Look closely at your function context. In modbluetooth.c, the active handle integer 
+                // is typically passed down as arguments or nested inside a tuple/struct parameter named 'conn_handle'.
+                // If your local variable is named differently, update 'conn_handle' to match your local function variable.
+                
+                #if MICROPY_BLUETOOTH_BTSTACK
+                // For the RP2 port (Pico W / Pico 2 W), MicroPython sits on top of BlueKitchen's BTstack core.
+                // Include "sm.h" at the top of your file if it throws an implicit declaration warning.
+                
+                // This instantly requests an authenticated LE Secure Connection handshake over the link
+                sm_request_pairing(conn_handle); 
+                #endif
+            }
             // conn_handle, addr_type, addr
             ringbuf_extract(&o->ringbuf, data_tuple, 1, 1, &o->irq_data_addr, 0, NULL, NULL);
         } else if (event == MP_BLUETOOTH_IRQ_CONNECTION_UPDATE) {
