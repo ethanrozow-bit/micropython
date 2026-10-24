@@ -370,6 +370,7 @@ if (MICROPY_PY_BLUETOOTH_CYW43)
 endif()
 
 if (MICROPY_BLUETOOTH_BTSTACK)
+    
     list(APPEND GIT_SUBMODULES lib/btstack)
 
     list(APPEND MICROPY_SOURCE_PORT mpbtstackport.c)
@@ -379,6 +380,7 @@ if (MICROPY_BLUETOOTH_BTSTACK)
 
     target_compile_definitions(${MICROPY_TARGET} PRIVATE
         MICROPY_BLUETOOTH_BTSTACK=1
+        MICROPY_PY_BLUETOOTH_ENABLE_PAIRING_BONDING=1
         "MICROPY_BLUETOOTH_BTSTACK_CONFIG_FILE=\"btstack_inc/btstack_config.h\""
     )
 
